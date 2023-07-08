@@ -1,23 +1,29 @@
-import { router } from "expo-router";
+import { useLocalSearchParams, Stack } from "expo-router";
 import { Text, View, FlatList } from "react-native";
 import { ListItem } from "@rneui/themed";
 
 const mockData = [
   {
     id: 1,
-    name: "Kids Bank",
+    description: "Food",
+    amount: 7.50
   },
   {
     id: 2,
-    name: "Main Budget",
+    description: "Gas",
+    amount: 35.00
   },
 ];
 
-export default function Index() {
+export default function BucketScreen() {
+
+  const { id } = useLocalSearchParams();
+
   const renderItem = ({ item }) => (
-    <ListItem onPress={() => { router.push({ pathname:`/buckets/[id]`, params: { id: item.id }})}}>
+    <ListItem onPress={() => { console.log('press')}}>
       <ListItem.Content>
-        <ListItem.Title>{item.name}</ListItem.Title>
+        <ListItem.Title>{item.description}</ListItem.Title>
+        <ListItem.Subtitle>{item.amount}</ListItem.Subtitle>
       </ListItem.Content>
       <ListItem.Chevron />
     </ListItem>
@@ -27,6 +33,7 @@ export default function Index() {
 
   return (
     <View style={{ flex: 1 }}>
+      <Stack.Screen options={{ title: `Bucket with id ${id}` }} />
       <FlatList data={mockData} renderItem={renderItem} keyExtractor={keyExtractor} />
     </View>
   );
