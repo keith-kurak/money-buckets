@@ -17,7 +17,7 @@ const mockData = [
 
 export default function BucketScreen() {
 
-  const { id } = useLocalSearchParams();
+  const { bucketId } = useLocalSearchParams();
 
   const renderItem = ({ item }) => (
     <ListItem onPress={() => { console.log('press')}}>
@@ -33,7 +33,7 @@ export default function BucketScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-      <Stack.Screen options={{ title: `Bucket with id ${id}` }} />
+      <Stack.Screen options={{ title: `Bucket with id ${bucketId}` }} />
       <FlatList data={mockData} renderItem={renderItem} keyExtractor={keyExtractor} />
     </View>
   );
