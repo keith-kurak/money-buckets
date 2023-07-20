@@ -1,10 +1,12 @@
 import { Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 import { withSetPropAction } from "./helpers/withSetPropAction"
+import { LineItemModel } from "./LineItem"
 
 export const BucketModel = types
   .model("Bucket")
   .props({
     name: types.string,
+    lineItems: types.array(LineItemModel),
   })
   .actions(withSetPropAction)
 

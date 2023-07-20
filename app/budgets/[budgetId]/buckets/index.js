@@ -4,21 +4,6 @@ import { ListItem } from "@rneui/themed";
 import { observer } from "mobx-react-lite"
 import { useStores } from "@/models"
 
-const mockData = [
-  {
-    id: 1,
-    name: "Ben",
-  },
-  {
-    id: 2,
-    name: "Ephraim",
-  },
-  {
-    id: 3,
-    name: "Helena",
-  },
-];
-
 export default observer(function Index() {
   const { budgetId } = useLocalSearchParams();
   const { budgetsStore } = useStores();
@@ -28,7 +13,7 @@ export default observer(function Index() {
       onPress={() => {
         router.push({
           pathname: `/budgets/[budgetId]/buckets/[bucketId]`,
-          params: { bucketId: item.id, budgetId: budgetId },
+          params: { bucketId: item.name, budgetId: budgetId },
         });
       }}
     >
