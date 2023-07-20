@@ -1,9 +1,10 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { ThemeProvider } from "@rneui/themed";
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
+import { useInitialRootStore } from "../models"
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -24,13 +25,17 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
+  const { rehydrated } = useInitialRootStore(() => {
+
+  })
+
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
   }, [error]);
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded && rehydrated) {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
@@ -46,7 +51,7 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider>
       <Stack>
         <Stack.Screen name="index" />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

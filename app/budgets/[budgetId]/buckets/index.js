@@ -1,6 +1,8 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { Text, View, FlatList } from "react-native";
 import { ListItem } from "@rneui/themed";
+import { observer } from "mobx-react-lite"
+import { useStores } from "@/models"
 
 const mockData = [
   {
@@ -17,8 +19,9 @@ const mockData = [
   },
 ];
 
-export default function Index() {
+export default observer(function Index() {
   const { budgetId } = useLocalSearchParams();
+  const { budgetsStore } = useStores();
 
   const renderItem = ({ item }) => (
     <ListItem
@@ -36,15 +39,15 @@ export default function Index() {
     </ListItem>
   );
 
-  const keyExtractor = (item) => item.id.toString();
+  const keyExtractor = (item) => item.name.toString();
 
   return (
     <View style={{ flex: 1 }}>
       <FlatList
-        data={mockData}
+        data={budgetsStore.budgets[0].buckets}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
       />
     </View>
   );
-}
+})
