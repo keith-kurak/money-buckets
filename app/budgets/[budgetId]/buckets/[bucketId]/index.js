@@ -2,6 +2,7 @@ import { useLocalSearchParams, Stack } from "expo-router";
 import { View, FlatList } from "react-native";
 import { ListItem, FAB } from "@rneui/themed";
 import { observer } from "mobx-react-lite";
+import { Ionicons } from "@expo/vector-icons";
 import { useStores } from "@/models";
 
 export default observer(function BucketScreen() {
@@ -26,7 +27,8 @@ export default observer(function BucketScreen() {
             amount: 5,
           })
         }
-      />
+      ><Ionicons name="add" size={30} color="white" />
+      </FAB>
     </View>
   );
 });
