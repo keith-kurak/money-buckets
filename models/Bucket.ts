@@ -5,6 +5,7 @@ import { LineItemModel } from "./LineItem"
 export const BucketModel = types
   .model("Bucket")
   .props({
+    id: types.identifier,
     name: types.string,
     lineItems: types.array(LineItemModel),
   })

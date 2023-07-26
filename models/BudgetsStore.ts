@@ -1,4 +1,5 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree";
+import uuid from 'react-native-uuid';
 import { BudgetModel } from "./Budget";
 
 export const BudgetsStoreModel = types
@@ -24,7 +25,7 @@ export const BudgetsStoreModel = types
         ?.buckets.find((bucket) => bucket.name === bucketName);
 
       if (bucket) {
-        bucket.lineItems.push({ amount, description });
+        bucket.lineItems.push({ id: uuid.v4().toString(), amount, description });
       }
     },
     initWithDemoData: function () {
@@ -32,18 +33,23 @@ export const BudgetsStoreModel = types
         name: "main",
         buckets: [
           {
+            id: '1',
             name: "Ben",
           },
           {
+            id: '2',
             name: "Ephraim",
           },
           {
+            id: '3',
             name: "Helena",
           },
           {
+            id: '4',
             name: "Stella",
           },
           {
+            id: '5',
             name: "Oscar",
           },
         ],

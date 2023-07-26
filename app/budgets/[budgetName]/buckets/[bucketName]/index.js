@@ -8,13 +8,13 @@ import { useStores } from "@/models";
 import { LineItemRow, EditableLineItemRow } from "@/components";
 
 export default observer(function BucketScreen() {
-  const { bucketId, budgetId } = useLocalSearchParams();
+  const { bucketName, budgetName } = useLocalSearchParams();
   const { budgetsStore } = useStores();
   const [isEditing, setIsEditing] = useState(false);
 
   const bucket = budgetsStore.budgets
-    .find((budget) => budget.name === budgetId)
-    ?.buckets.find((bucket) => bucket.name === bucketId);
+    .find((budget) => budget.name === budgetName)
+    ?.buckets.find((bucket) => bucket.name === bucketName);
 
   const keyExtractor = (item, index) => index.toString();
 
@@ -22,7 +22,7 @@ export default observer(function BucketScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-      <Stack.Screen options={{ title: `Bucket with id ${bucketId}` }} />
+      <Stack.Screen options={{ title: `${bucketName}` }} />
       <FlatList
         data={bucket?.lineItems.slice()}
         renderItem={renderItem}
@@ -34,8 +34,8 @@ export default observer(function BucketScreen() {
               onConfirm={({ description, amount }) => {
                 setIsEditing(false);
                 budgetsStore.addLineItem({
-                  bucketName: bucketId,
-                  budgetName: budgetId,
+                  bucketName,
+                  budgetName,
                   description,
                   amount,
                 });

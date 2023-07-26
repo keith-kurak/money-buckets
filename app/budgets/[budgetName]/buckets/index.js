@@ -1,19 +1,19 @@
-import { router, useLocalSearchParams } from "expo-router";
-import { Text, View, FlatList } from "react-native";
+import { router, useLocalSearchParams, Stack } from "expo-router";
+import { View, FlatList } from "react-native";
 import { ListItem } from "@rneui/themed";
 import { observer } from "mobx-react-lite"
 import { useStores } from "@/models"
 
 export default observer(function Index() {
-  const { budgetId } = useLocalSearchParams();
+  const { budgetName } = useLocalSearchParams();
   const { budgetsStore } = useStores();
 
   const renderItem = ({ item }) => (
     <ListItem
       onPress={() => {
         router.push({
-          pathname: `/budgets/[budgetId]/buckets/[bucketId]`,
-          params: { bucketId: item.name, budgetId: budgetId },
+          pathname: `/budgets/[budgetName]/buckets/[bucketName]`,
+          params: { bucketName: item.name, budgetName: budgetName },
         });
       }}
     >
@@ -28,6 +28,7 @@ export default observer(function Index() {
 
   return (
     <View style={{ flex: 1 }}>
+      <Stack.Screen options={{ title: `${budgetName} budget` }} />
       <FlatList
         data={budgetsStore.budgets[0].buckets}
         renderItem={renderItem}

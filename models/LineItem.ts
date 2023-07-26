@@ -4,6 +4,7 @@ import { withSetPropAction } from "./helpers/withSetPropAction"
 export const LineItemModel = types
   .model("LineItem")
   .props({
+    id: types.identifier,
     description: types.string,
     amount: types.number,
   })
